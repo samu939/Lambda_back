@@ -26,7 +26,7 @@ export class LogInUserInfraService implements IApplicationService<LogInEntryDto,
     }
     
     async execute(logInDto: LogInEntryDto): Promise<Result<LogInResponseDto>> {
-        const findResult = await this.accountRepository.findUserByEmail( logInDto.email )
+        const findResult = await this.accountRepository.findUserByEmail( logInDto.username )
         if ( !findResult.isSuccess() ) return Result.fail( findResult.Error, findResult.StatusCode, findResult.Message )
         const userResult = await findResult.Value
         const checkPassword = await this.encryptor.comparePlaneAndHash(logInDto.password, userResult.password)

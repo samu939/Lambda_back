@@ -5,7 +5,7 @@ export class LogInUserEntryInfraDto {
     
     @ApiProperty({ example: 'carlonsozoa@gmail.com' })
     @IsString()
-    email: string
+    username: string
     
     @ApiProperty({ example: 'arrozconcanela22' })
     @IsString()
