@@ -5,17 +5,21 @@ import { OrmUser } from "src/user/infraestructure/entities/orm-entities/user.ent
 import { DataSource } from "typeorm";
 import { JwtPayload } from "./dto/jwt-payload.interface";
 import { OrmAccountRepository } from "src/user/infraestructure/repositories/orm-repositories/orm-account-repository";
+import { OdmAccountRepository } from "src/user/infraestructure/repositories/odm-repository/odm-account-repository"
+import { Model } from "mongoose"
+import { OdmUserEntity } from "src/user/infraestructure/entities/odm-entities/odm-user.entity"
+import { InjectModel } from "@nestjs/mongoose"
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
 
-    private userRepository: OrmAccountRepository
+    private userRepository: OdmAccountRepository
 
     constructor(
         private jwtService: JwtService,
-        @Inject('DataSource') dataSource: DataSource
+        @InjectModel('User') private userModel: Model<OdmUserEntity>,
     ) {
-        this.userRepository = new OrmAccountRepository(dataSource)
+        this.userRepository = new OdmAccountRepository(userModel)
     }
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -33,7 +37,7 @@ export class JwtAuthGuard implements CanActivate {
     }
     
     private async validate(payload: JwtPayload) {
-        const user: Result<OrmUser> = await this.userRepository.findUserById( payload.id ); 
+        const user: Result<OdmUserEntity> = await this.userRepository.findUserById( payload.id ); 
         if ( !user.isSuccess() ) throw new Error('Error buscando al usuario a traves del token')
         return user.Value;
     }

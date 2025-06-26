@@ -7,15 +7,16 @@ import { LogInResponseDto } from "./dto/response/log-in-response.dto";
 import { IAccountRepository } from "src/user/application/interfaces/account-user-repository.interface";
 import { OrmUser } from "src/user/infraestructure/entities/orm-entities/user.entity";
 import { IncorrectPasswordException } from "../exceptions/incorrect-password-exception copy";
+import { OdmUserEntity } from "src/user/infraestructure/entities/odm-entities/odm-user.entity"
 
 export class LogInUserInfraService implements IApplicationService<LogInEntryDto, LogInResponseDto> { 
     
-    private readonly accountRepository: IAccountRepository<OrmUser>
+    private readonly accountRepository: IAccountRepository<OdmUserEntity>
     private readonly tokenGenerator: IJwtGenerator<string>;
     private readonly encryptor: IEncryptor; 
 
     constructor(
-        accountRepository: IAccountRepository<OrmUser>,
+        accountRepository: IAccountRepository<OdmUserEntity>,
         tokenGenerator: IJwtGenerator<string>,
         encryptor: IEncryptor,
     ){

@@ -120,7 +120,7 @@ export class AuthController {
             new LoggingDecorator(
                 new PerformanceDecorator(
                     new LogInUserInfraService(
-                        this.ormAccountRepository,
+                        this.odmAccountRepository,
                         this.tokenGenerator,
                         this.encryptor
                     ),
