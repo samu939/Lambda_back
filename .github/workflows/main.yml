@@ -35,3 +35,14 @@ jobs:
           context: .
           push: true
           tags: samuelalonso939/lambda_back:latest, samuelalonso939/lambda_back:${{ github.run_number }}
+  trigger-deploy:
+    needs: build-container
+    name: Trigger render Deploy
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Deploy
+        env:
+          deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          curl "$deploy_url"
