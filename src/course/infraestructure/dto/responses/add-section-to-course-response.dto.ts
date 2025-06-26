@@ -4,7 +4,7 @@ import { ApiProperty } from "@nestjs/swagger"
 export class AddSectionToCourseResponseDto
 {
     @ApiProperty({
-        example: "c2c7b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1b",
+        example: "c2c7b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b12",
     })
     id: string
 
