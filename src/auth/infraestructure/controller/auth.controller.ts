@@ -112,7 +112,7 @@ export class AuthController {
         } 
     }
 
-    @Post('login')
+    @Post('loginUser')
     @ApiOkResponse({ description: 'Iniciar sesion de usuario', type: LogInUserSwaggerResponseDto })
     async logInUser(@Body() logInDto: LogInUserEntryInfraDto) {
         const data = { userId: 'none', ...logInDto } 
